@@ -1,15 +1,15 @@
 import React from 'react'
 import { View, Text, StyleSheet  } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import CardCrypto from '../components/CardCrypto';
 import { Ionicons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native';
 import { INavigation } from '../navigation/NavigationContainer';
+import { useAppSelector } from '../redux';
 
-const addImageIcon = require('../assets/addIcon.png')
+import CardCrypto from '../components/CardCrypto'
 
 
 const HomeScreen = ({ navigation }: INavigation) => {
+  const { isLogged } = useAppSelector(store => store.user)
   const [ userCryptos, setUserCryptos ] = React.useState([])
   const travelToCryptos = () => {
     navigation.navigate('Main', {
@@ -27,12 +27,16 @@ const HomeScreen = ({ navigation }: INavigation) => {
         ) : null
       }
         <View style={styles.cryptosContainer}>
+        {
+          !isLogged
+          &&
             <CardCrypto onPress={() => navigation.navigate('Auth', { screen: "Login" })}>
               <View style={styles.containerAdd}>
                   <Ionicons name='log-in-outline' size={32} color="#000" />
                   <Text style={{...styles.fontCrypto, color: "#000"}}>Sign In</Text>
               </View>
             </CardCrypto>
+        }
             <CardCrypto onPress={travelToCryptos}>
               <View style={styles.containerAdd}>
                   <Ionicons name='add-circle' size={32} color="#aaa" />

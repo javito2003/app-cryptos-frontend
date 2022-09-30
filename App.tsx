@@ -1,5 +1,6 @@
 import NavigationContainer from './navigation/NavigationContainer';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider as PaperProvider } from 'react-native-paper';
 import * as Font from 'expo-font'
 import AppLoading from 'expo-app-loading'
 import { useState } from 'react';
@@ -23,9 +24,11 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <SafeAreaProvider>
-        <NavigationContainer />
-      </SafeAreaProvider>
+      <PaperProvider>
+        <SafeAreaProvider>
+          <NavigationContainer />
+        </SafeAreaProvider>
+      </PaperProvider>
     </Provider>
   );
 }
